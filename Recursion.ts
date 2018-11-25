@@ -57,13 +57,13 @@ console.log (
     ([1, 2, 3, 4])
 )
 // Singly Linked list
-type Tree <T> = undefined | {value: T, pointer: Tree<T>}
+type TreeF <T> = undefined | {value: T, pointer: TreeF<T>}
 type F = (any) => any
 type FMap <T> = (F) => (T) => (T)
 
 const treeMap= <T> 
     (fn: Function) => 
-    ({value, pointer} : Tree<T>) =>
+    ({value, pointer} : TreeF<T>) =>
     pointer ?
     {
         value: fn (value), 
@@ -74,7 +74,7 @@ const treeMap= <T>
         pointer: undefined
     }
 
-const numTree: Tree<number> = {
+const numTreeF: TreeF<number> = {
     value: 5,
     pointer: {
         value: 2,
@@ -85,4 +85,4 @@ const numTree: Tree<number> = {
     }
 }
 
-console.log(treeMap<number> (add5) (numTree))
+console.log(treeMap<number> (add5) (numTreeF))
