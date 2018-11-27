@@ -11,7 +11,7 @@ interface Box<T> {
 }
 
 // How a implementation of a Singly Linked List would look like
-class List<T> implements Functor<T> {
+class List<T> implements Functor<T>{
   constructor(public readonly value: T,
     public readonly pointer: List<T> | undefined) { }
 
@@ -27,6 +27,23 @@ class List<T> implements Functor<T> {
   static empty() {
       return undefined
   }
+}
+
+class Maybe<T> implements Functor<T>, Apply<T> {
+    constructor(public readonly value: T) {}
+
+    static of<T>(value: T) {
+        return new Maybe<T>(value)
+    }
+
+    map<U>(fn:(f: T) => U): Maybe<U> {
+        return Maybe.of<U>(fn (this.value))
+    }
+    
+    apply<U>(functorFunction: Maybe<(f: T) => U>): Maybe<U> {
+        return functorFunction.map(f => f (this.value)) 
+    }
+
 }
 
 class Tree<T> implements Functor<T> {
