@@ -2,6 +2,10 @@ interface Functor<T> extends Box<T> {
     map<U>(f: (fn: T) => U): Functor<U>
 }
 
+interface Apply<T> extends Functor<T> {
+    apply<U>(functorFunction: Functor<(f: T) => U>): Apply<U>
+}
+
 interface Box<T> {
     value: T
 }
