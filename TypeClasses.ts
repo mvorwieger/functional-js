@@ -1,16 +1,6 @@
 import {Functor} from "./Functor"
-
-interface Apply<T> extends Functor<T> {
-    apply<U>(functorFunction: Functor<(f: T) => U>): Apply<U>
-}
-
-interface Applicative<T> extends Apply<T> {
-    of(a: T): Applicative<T>
-}
-
-interface Box<T> {
-    value: T
-}
+import {Apply} from "./Apply"
+import {Applicative } from "./Applicative";
 
 // How a implementation of a Singly Linked List would look like
 class List<T> implements Functor<T>{
@@ -31,7 +21,7 @@ class List<T> implements Functor<T>{
   }
 }
 
-class Maybe<T> implements Functor<T>, Apply<T> {
+class Maybe<T> implements Functor<T>, Apply<T>{
     constructor(public readonly value: T) {}
 
     static of<T>(value: T) {
