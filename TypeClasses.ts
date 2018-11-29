@@ -6,6 +6,10 @@ interface Apply<T> extends Functor<T> {
     apply<U>(functorFunction: Functor<(f: T) => U>): Apply<U>
 }
 
+interface Applicative<T> extends Apply<T> {
+    of(a: T): Applicative<T>
+}
+
 interface Box<T> {
     value: T
 }
@@ -73,6 +77,7 @@ class Tree<T> implements Functor<T> {
 }
 
 // now we can define fmap for every Functor
+// @ts-ignore
 const fmap = (fn: (any) => any, functor: Functor<any>) => functor.map(fn)
 
 // or we can even go further and construct a typesafe version of fmap
@@ -100,3 +105,4 @@ const resultTree = fmapT<number, string>(String, list)
 
 console.log(resultList)
 console.log(resultTree)
+console.log(Maybe.of(5).apply(Maybe.of((a: number) => a +5)))
