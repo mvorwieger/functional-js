@@ -1,6 +1,4 @@
-interface Functor<T> extends Box<T> {
-    map<U>(f: (fn: T) => U): Functor<U>
-}
+import {Functor} from "./Functor"
 
 interface Apply<T> extends Functor<T> {
     apply<U>(functorFunction: Functor<(f: T) => U>): Apply<U>
